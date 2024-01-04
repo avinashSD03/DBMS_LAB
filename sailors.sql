@@ -108,7 +108,7 @@ select b.bname,b.color
 from boat b
 join reserves r using(bid)
 join sailors s using(sid)
-where s.rating=7;
+where s.rating=7;   -- use "like" instead of "=" , for eg: "s.rating like 6.5" etc... 
 
 select* from Boat_Color;
 
