@@ -87,9 +87,12 @@ SELECT * FROM WorksOn;
 
 -- Make a list of all project numbers for projects that involve an employee whose last name is ‘Scott’, either as a worker or as a manager of the department that controls the project.
 
-select p_no,p_name,e.name from project
-join employee e using(d_no)
-where e.name like "%Krishna";
+select p_no,p_name from project p
+join department d using(d_no)
+join workson w using (p_no)
+join employee e using (ssn)
+where mgr_ssn in (select ssn from employee where name like "%Krishna%") 
+or w.ssn in (select ssn from employee where name like "%Krishna%");
 
 -- -------------------------------------------------------
 
