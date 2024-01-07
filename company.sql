@@ -107,12 +107,23 @@ where ssn in (select ssn from employee where name like "%Krishna%");
 -- Show the resulting salaries if every employee working on the ‘IoT’ project is given a 10 percent raise
 
 select e.name,e.salary as "Old Salary",e.salary*1.1 as "New Salary" from employee e
+where d_no in (select d_no from project where p_name="IOT"); 
+
+--or
+
+select e.name,e.salary as "Old Salary",e.salary*1.1 as "New Salary" from employee e
 join project p using(d_no)
 where p.p_name="IOT";
 
 -- --------------------------------------------------------
 
 -- Find the sum of the salaries of all employees of the ‘Accounts’ department, as well as the maximum salary, the minimum salary, and the average salary in this department
+
+select SUM(salary) as "Total",MAX(salary) as "Maximum",MIN(salary) as "Minimum",AVG(salary) as "Average"
+from employee
+where d_no in ( select d_no from department where dname="Accounts");
+
+-- or
 
 select SUM(salary) as "Total",MAX(salary) as "Maximum",MIN(salary) as "Minimum",AVG(salary) as "Average"
 from employee 
