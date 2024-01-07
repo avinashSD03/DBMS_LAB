@@ -94,6 +94,14 @@ join employee e using (ssn)
 where mgr_ssn in (select ssn from employee where name like "%Krishna%") 
 or w.ssn in (select ssn from employee where name like "%Krishna%");
 
+-- or
+ -- here only p_no comes not names above query gives names also
+select p_no from project
+where d_no in (select d_no from department where mgr_ssn in (select ssn from employee where name like "%Krishna%"))
+union 
+select p_no from workson
+where ssn in (select ssn from employee where name like "%Krishna%");
+
 -- -------------------------------------------------------
 
 -- Show the resulting salaries if every employee working on the ‘IoT’ project is given a 10 percent raise
