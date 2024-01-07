@@ -138,9 +138,9 @@ begin
 if ( (select count(driver_id) from participated join accident using(report_no) 
 		where driver_id=NEW.driver_id and year(accident_date) in 
 			(select year(accident_date) from accident 
-				where report_no=NEW.report_no) ) =2) then
+				where report_no=NEW.report_no) ) =3) then
 	SIGNAL SQLSTATE '45000' 
-	SET MESSAGE_TEXT='Driver in 2 accidents';
+	SET MESSAGE_TEXT='Driver in 3 accidents';
 end if;
 end;//
 delimiter ;
