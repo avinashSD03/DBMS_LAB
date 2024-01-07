@@ -132,6 +132,11 @@ group by c.cname;
 -- Find the item with the maximum unit price.
 
 select * from items
+where unitprice in (select MAX(unitprice) from items);
+
+-- or
+
+select * from items
 order by unitprice desc limit 1;
 
 -- ----------------------------------------------------------
