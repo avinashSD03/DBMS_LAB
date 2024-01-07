@@ -50,6 +50,14 @@ select * from reserves;
 
 -- Find the colours of the boats reserved by Albert
 
+select color 
+from boat
+where bid in (select bid from reserves
+    where sid in (select sid from sailors
+        where sname = "Albert"));
+
+--or
+
 select color from boat
 join reserves r using(bid)
 join sailors s using(sid)
@@ -59,6 +67,12 @@ where s.sname="Albert";
 
 -- Find all the sailor sids who have rating atleast 8 or reserved boat 103
 
+select sid from sailors
+where rating >=8 
+or sid in (select sid from reserves where bid=103);
+
+--or
+
 select s.sid from sailors s 
 join reserves r using(sid)
 where rating>=8 or r.bid=103;
@@ -66,6 +80,13 @@ where rating>=8 or r.bid=103;
 -- --------------------------------------------------
 
 -- Find the names of the sailor who have not reserved a boat whose name contains the string "storm". Order the name in the ascending order
+
+select sname from sailors
+where sid not in (select sid from reserves)
+and sname like "%storm%"
+order by sname;
+
+-- or
 
 select sid from sailors 
 where sid not in (select distinct sid from reserves) 
@@ -92,6 +113,11 @@ select sname from Sailors s where not exists
 -- ----------------------------------------------------
 
 -- Find the name and age of the oldest sailor
+
+select sname,age from sailors
+where age in (select MAX(age) from sailors);
+
+--or 
 
 select sname,age from sailors
 order by age desc limit 1;
