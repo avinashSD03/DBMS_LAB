@@ -76,6 +76,15 @@ order by sname;
 
 -- Find the name of the sailors who have reserved all boats
 
+select sname from sailors
+where sid in 
+	( select sid from reserves 
+	group by sid 
+	having count(bid) in ( select count(bid) from boat )
+);
+
+-- or
+
 select sname from Sailors s where not exists
 	(select * from Boat b where not exists
 		(select * from reserves r where r.sid=s.sid and b.bid=r.bid));
