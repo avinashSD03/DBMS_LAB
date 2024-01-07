@@ -96,6 +96,20 @@ ORDER BY t.book_title;
 
 -- -----------------------------------------------------------------------
 
+-- List any dept that has all its adopted books published by specific publisher
+
+INSERT INTO BookAdoption VALUES
+(001,4,278345);  -- this insertion was done to check if the output is empty set, 
+		 -- since this isbn belongs to publisher who is not pearson hence making cs dept adopt books published by different authors 
+
+delete from BookAdoption where bookIsbn=278345; -- on deleteing it we get correct output since cs dept has books adopted only by pearson 
+
+select dept from course
+where course in 
+( select course from bookadoption group by course having count(bookIsbn) in 
+	( select count(bookIsbn) from textbook where publisher="Pearson" group by publisher));
+
+-- ------------------------------------------------------------------------
 -- List the students who have scored maximum marks in ‘DBMS’ course.
 
 select s.name from student s
