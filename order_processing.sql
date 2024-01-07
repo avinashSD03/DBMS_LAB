@@ -93,6 +93,11 @@ SELECT * FROM Warehouses;
 
 -- List the Order# and Ship_date for all orders shipped from Warehouse# "0001".
 
+select order_id,ship_date from shipments
+where warehouse_id=2;
+
+--or
+
 select order_id,ship_date from orders
 join shipments using(order_id)
 join warehouses using(warehouse_id)
